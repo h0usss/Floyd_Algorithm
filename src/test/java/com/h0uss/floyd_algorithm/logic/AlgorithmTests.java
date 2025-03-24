@@ -1,5 +1,5 @@
-import com.h0uss.floyd_algorithm.Algorithm;
-import com.h0uss.floyd_algorithm.FloydMatrix;
+package com.h0uss.floyd_algorithm.logic;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;

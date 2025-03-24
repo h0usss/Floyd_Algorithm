@@ -1,4 +1,4 @@
-package com.h0uss.floyd_algorithm;
+package com.h0uss.floyd_algorithm.logic;
 
 public class Algorithm {
     static double inf = Double.POSITIVE_INFINITY;
