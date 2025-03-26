@@ -1,6 +1,7 @@
 module com.h0uss.floyd_algorithm {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     exports com.h0uss.floyd_algorithm.logic;

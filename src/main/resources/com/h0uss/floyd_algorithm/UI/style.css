@@ -1,0 +1,19 @@
+
+.root {
+    -main-color: #4285f4;
+    -sec-color: #f4b400;
+    -cell-font-size: 14px;
+}
+
+.cell{
+    -fx-font-size: -font-size;
+    -fx-background-color: -sec-color;
+}
+
+.num-cell{
+    -fx-background-color: -main-color;
+}
+
+.texting-cell{
+    -fx-background-color: #fff;
+}
