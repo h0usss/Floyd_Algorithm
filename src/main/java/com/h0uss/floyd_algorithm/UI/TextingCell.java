@@ -5,14 +5,20 @@ public class TextingCell extends Cell {
     public TextingCell() {
         super();
 
-        this.setText("0");
-        this.setEditable(true);
-        this.getStyleClass().addAll("texting-cell", "cell");
+        setText("0");
+        setEditable(true);
+        getStyleClass().addAll("cell", "texting-cell");
 
-        this.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                this.setText(oldValue);
-            }
+        textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*"))
+                setText(oldValue);
+            else if (newValue.length() > 1 && newValue.charAt(0) == '0')
+                setText(newValue.substring(1));
+        });
+
+        focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (!isNowFocused && getText().isEmpty())
+                setText("0");
         });
     }
 }

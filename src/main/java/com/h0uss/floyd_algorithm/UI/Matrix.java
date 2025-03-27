@@ -8,11 +8,17 @@ import javafx.scene.layout.RowConstraints;
 public class Matrix extends GridPane {
 
     private int size;
-    private int fontFactor;
 
-    public Matrix(int _size, Pane pane) {
+    private String mainColor;
+    private String subColor;
+
+    public Matrix(int _size, Pane pane, String mainColor, String subColor) {
         super();
         this.size = _size;
+        this.subColor = subColor;
+        this.mainColor = mainColor;
+
+        setSettings();
 
         pane.getChildren().add(this);
 
@@ -37,45 +43,47 @@ public class Matrix extends GridPane {
         }
 
         fillCellMatrix();
-//        fillCellColor();
-//        changeFontSize();
+        setStyles();
+
+        requestLayout();
     }
 
     private void fillCellMatrix() {
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++) {
+                Cell cell;
+
                 if (i == j)
-                    add(new Cell(), i, j);
+                    cell = new Cell();
                 else if (i == 0 || j == 0)
-                    add(new NumCell(Math.max(i, j)), i, j);
+                    cell = new NumCell(Math.max(i, j));
                 else
-                    add(new TextingCell(), i, j);
+                    cell = new TextingCell();
+
+                add(cell, i, j);
             }
-    }
 
-//    private void fillCellColor(){
-//        for (int i = 0; i < size; i++)
-//            for (int j = 0; j < size; j++){
-//                Cell cell = getCell(i, j);
-//
-//                if (i == j)
-//                    cell.colorIt(secondaryColor);
-//                else if (i == 0 || j == 0)
-//                    cell.colorIt(mainColor);
-//            }
-//    }
-
-    private void changeFontSize() {
-        for (int i = 0; i < size; i++)
-            for (int j = 0; j < size; j++)
-                getCell(i, j).changeFontSize(fontFactor * size);
+        setStyles();
     }
 
     private Cell getCell(int column, int row) {
         return (Cell) this.getChildren().get(row * this.getRowCount() + column);
     }
 
+    private void setStyles() {
+        setStyle(
+                "-main-color: " + mainColor + "; " +
+                "-sec-color: " + subColor + ";"
+        );
+        setGridLinesVisible(false);
+        setGridLinesVisible(true);
+    }
 
-    public void setFontFactor(int fontFactor) {
+    private void setSettings(){
+        setLayoutX(33);
+        setLayoutY(125);
+
+        setPrefHeight(400);
+        setPrefWidth(400);
     }
 }

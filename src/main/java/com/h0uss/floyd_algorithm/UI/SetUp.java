@@ -18,20 +18,4 @@ public class SetUp {
             matrix.resizeMatrix(newValue + 1);
         });
     }
-
-    public static void setMatrixProperty(Matrix matrix, String mainColor, String secondaryColor, int fontFactor) {
-        matrix.setLayoutX(33);
-        matrix.setLayoutY(125);
-
-        matrix.setPrefHeight(400);
-        matrix.setPrefWidth(400);
-
-        matrix.setGridLinesVisible(true);
-
-        matrix.setStyle(
-                "-main-color: " + mainColor + "; " +
-                "-sec-color: " + secondaryColor + ";"
-        );
-        matrix.setFontFactor(fontFactor);
-    }
 }
