@@ -8,15 +8,17 @@ import javafx.scene.layout.RowConstraints;
 public class Matrix extends GridPane {
 
     private int size;
+    private boolean isEditable;
 
     private String mainColor;
     private String subColor;
 
-    public Matrix(int _size, Pane pane, String mainColor, String subColor) {
+    public Matrix(int _size, Pane pane, String mainColor, String subColor, boolean isEditable) {
         super();
         this.size = _size;
         this.subColor = subColor;
         this.mainColor = mainColor;
+        this.isEditable = isEditable;
 
         setSettings();
 
@@ -57,8 +59,10 @@ public class Matrix extends GridPane {
                     cell = new Cell();
                 else if (i == 0 || j == 0)
                     cell = new NumCell(Math.max(i, j));
-                else
+                else{
                     cell = new TextingCell();
+                    cell.setEditableSettings(isEditable);
+                }
 
                 add(cell, i, j);
             }
@@ -85,5 +89,30 @@ public class Matrix extends GridPane {
 
         setPrefHeight(400);
         setPrefWidth(400);
+    }
+
+    public int[][] getMatrix() {
+        int[][] res = new int[size - 1][size - 1];
+        for (int i = 0; i < size - 1; i++)
+            for (int j = 0; j < size - 1; j++){
+                if (i == j)
+                    res[i][j] = -1;
+                else{
+                    Cell cell = getCell(i + 1, j + 1);
+                    if (cell.getText().equals("∞"))
+                        res[i][j] = -1;
+                    else
+                        res[i][j] = Integer.parseInt(cell.getText());
+                }
+            }
+
+        return res;
+    }
+
+    public void set(int[][] matrix) {
+        for (int i = 1; i < size; i++)
+            for (int j = 1; j < size; j++)
+                if (i != j)
+                    getCell(i,j).setText(String.valueOf(matrix[i-1][j-1]));
     }
 }

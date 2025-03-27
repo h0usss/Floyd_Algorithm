@@ -5,7 +5,7 @@ public class NumCell extends Cell {
     public NumCell(int num) {
         super();
 
-        this.setText(String.valueOf(num));
-        this.getStyleClass().addAll("cell", "num-cell");
+        setText(String.valueOf(num));
+        getStyleClass().addAll("cell", "num-cell");
     }
 }
