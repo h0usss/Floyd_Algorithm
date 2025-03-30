@@ -24,8 +24,9 @@
 }
 
 .floyd-node:hover {
-    -fx-fill: #2ecc71;
-    -fx-stroke: #27ae60;
+    -fx-fill: #a8fffb;
+    -fx-stroke: #00eee1;
+
 }
 
 .floyd-line-label{

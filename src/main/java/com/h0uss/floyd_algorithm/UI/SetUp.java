@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -93,9 +94,13 @@ public class SetUp {
     public static void connectionMatrixLines(Pane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
         for (Cell cell : adjacencyMatrix.getAllTextingCell())
             cell.textProperty().addListener((observable, oldValue, newValue) -> {
-
                 updateLines(pane, adjacencyMatrix, lines, nodes);
             });
+    }
+
+    public static void connectionSpinnerLines(Spinner<Integer> spinner,  AnchorPane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
+        spinner.valueProperty().addListener((observable, oldValue, newValue)
+                -> connectionMatrixLines(pane, adjacencyMatrix, lines, nodes));
     }
 
     public static void updateLines(Pane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
@@ -109,6 +114,15 @@ public class SetUp {
                 if (i != j && matrix[i][j] != -1)
                     lines.add(new FloydLine(nodes.get(i), nodes.get(j), matrix[i][j]));
 
-        pane.getChildren().addAll(lines);
+        redrawNodesLines(pane, nodes, lines);
     }
+
+    private static void redrawNodesLines(Pane pane, ArrayList<FloydNode> nodes, ArrayList<FloydLine> lines){
+        pane.getChildren().removeAll(lines);
+        pane.getChildren().removeAll(nodes);
+
+        pane.getChildren().addAll(lines);
+        pane.getChildren().addAll(nodes);
+    }
+
 }

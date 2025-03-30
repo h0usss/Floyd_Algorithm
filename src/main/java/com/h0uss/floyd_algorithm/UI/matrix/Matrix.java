@@ -101,11 +101,11 @@ public class Matrix extends GridPane {
                 if (i == j)
                     res[i][j] = -1;
                 else{
-                    Cell cell = getCell(i + 1, j + 1);
-                    if (cell.getText().equals("∞"))
+                    String cellText = getCell(i + 1, j + 1).getText();
+                    if (cellText.equals("∞") || cellText.isEmpty())
                         res[i][j] = -1;
                     else
-                        res[i][j] = Integer.parseInt(cell.getText());
+                        res[i][j] = Integer.parseInt(cellText);
                 }
             }
 

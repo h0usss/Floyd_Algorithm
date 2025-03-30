@@ -8,7 +8,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 
@@ -54,5 +53,7 @@ public class Controller{
         SetUp.connectionSpinnerNode(spinnerGridSize, nodes, paneDraw);
 
         SetUp.connectionMatrixLines(paneDraw, adjacencyMatrix, lines, nodes);
+        SetUp.connectionSpinnerLines(spinnerGridSize, paneDraw, adjacencyMatrix, lines, nodes);
+
     }
 }

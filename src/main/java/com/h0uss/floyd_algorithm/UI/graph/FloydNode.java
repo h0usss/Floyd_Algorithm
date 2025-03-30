@@ -5,8 +5,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import javax.crypto.spec.PSource;
-
 public class FloydNode extends StackPane {
 
     private int num;
