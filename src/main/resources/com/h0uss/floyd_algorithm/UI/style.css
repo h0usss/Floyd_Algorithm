@@ -1,6 +1,7 @@
 .root {
-    -main-color: #4285f4;
-    -sec-color: #f4b400;
+    -main-color: #c6faf6;
+    -sec-color: #eee;
+    -circ-stroke: #5ad8cc;
 }
 
 .cell{
@@ -13,4 +14,16 @@
 
 .texting-cell{
     -fx-background-color: #fff;
+}
+
+.floyd-node {
+    -fx-fill: -main-color;
+    -fx-stroke: -circ-stroke;
+    -fx-stroke-width: 2px;
+    -fx-stroke-type: inside;
+}
+
+.floyd-node:hover {
+    -fx-fill: #2ecc71;
+    -fx-stroke: #27ae60;
 }

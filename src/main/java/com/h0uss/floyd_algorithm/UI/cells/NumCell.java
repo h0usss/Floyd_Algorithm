@@ -1,4 +1,4 @@
-package com.h0uss.floyd_algorithm.UI;
+package com.h0uss.floyd_algorithm.UI.cells;
 
 public class NumCell extends Cell {
 

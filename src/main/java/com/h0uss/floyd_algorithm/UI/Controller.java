@@ -5,16 +5,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 
 public class Controller{
     private static final int INITIAL_SIZE = 4;
-    private static final String SUB_COLOR = "#eee";
-    private static final String MAIN_COLOR = "#c6faf6";
 
     @FXML private AnchorPane paneAdjacency;
     @FXML private AnchorPane paneOrdinal;
     @FXML private AnchorPane paneWeight;
+    @FXML private AnchorPane paneDraw;
 
     @FXML private Button btnCalc;
 
@@ -25,9 +26,9 @@ public class Controller{
 
     @FXML
     void initialize() {
-        Matrix adjacencyMatrix = new Matrix(INITIAL_SIZE, paneAdjacency, MAIN_COLOR, SUB_COLOR, true);
-        Matrix ordinalMatrix = new Matrix(INITIAL_SIZE, paneOrdinal, MAIN_COLOR, SUB_COLOR, false);
-        Matrix weightMatrix = new Matrix(INITIAL_SIZE, paneWeight, MAIN_COLOR, SUB_COLOR, false);
+        Matrix adjacencyMatrix = new Matrix(INITIAL_SIZE, paneAdjacency, true);
+        Matrix ordinalMatrix = new Matrix(INITIAL_SIZE, paneOrdinal, false);
+        Matrix weightMatrix = new Matrix(INITIAL_SIZE, paneWeight, false);
 
         SetUp.setSpinnerProperty(spinnerGridSize);
         SetUp.connectionSpinnerMatrix(spinnerGridSize, adjacencyMatrix);
@@ -40,6 +41,10 @@ public class Controller{
         SetUp.connectionChoiceBoxMatrix(spinnerGridSize, chBoxTo);
 
         SetUp.button(btnCalc, adjacencyMatrix, ordinalMatrix, weightMatrix);
+
+        FloydNode node = new FloydNode(50, "1");
+        paneDraw.getChildren().add(node);
+        node.setCenter(paneDraw.getPrefWidth() / 2.0, paneDraw.getPrefHeight() / 2.0);
 
     }
 

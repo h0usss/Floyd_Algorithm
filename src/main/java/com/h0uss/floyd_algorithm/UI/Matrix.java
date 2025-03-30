@@ -1,5 +1,8 @@
 package com.h0uss.floyd_algorithm.UI;
 
+import com.h0uss.floyd_algorithm.UI.cells.Cell;
+import com.h0uss.floyd_algorithm.UI.cells.NumCell;
+import com.h0uss.floyd_algorithm.UI.cells.TextingCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -10,14 +13,9 @@ public class Matrix extends GridPane {
     private int size;
     private boolean isEditable;
 
-    private String mainColor;
-    private String subColor;
-
-    public Matrix(int _size, Pane pane, String mainColor, String subColor, boolean isEditable) {
+    public Matrix(int _size, Pane pane, boolean isEditable) {
         super();
         this.size = _size;
-        this.subColor = subColor;
-        this.mainColor = mainColor;
         this.isEditable = isEditable;
 
         setSettings();
@@ -75,10 +73,6 @@ public class Matrix extends GridPane {
     }
 
     private void setStyles() {
-        setStyle(
-                "-main-color: " + mainColor + "; " +
-                "-sec-color: " + subColor + ";"
-        );
         setGridLinesVisible(false);
         setGridLinesVisible(true);
     }

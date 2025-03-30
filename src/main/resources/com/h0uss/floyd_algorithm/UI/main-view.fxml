@@ -10,9 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.6341653666146646" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.h0uss.floyd_algorithm.UI.Controller">
+<SplitPane dividerPositions="0.6302245789145352" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.h0uss.floyd_algorithm.UI.Controller">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <AnchorPane fx:id="paneDraw" layoutX="6.0" prefHeight="680.0" prefWidth="798.0" />
+         </children></AnchorPane>
       <TabPane prefHeight="679.0" prefWidth="374.0">
          <tabs>
             <Tab closable="false" text="Матрица смежности">
