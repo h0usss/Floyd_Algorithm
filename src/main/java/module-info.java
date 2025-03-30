@@ -8,6 +8,10 @@ module com.h0uss.floyd_algorithm {
     opens com.h0uss.floyd_algorithm.logic to javafx.fxml;
     exports com.h0uss.floyd_algorithm.UI;
     opens com.h0uss.floyd_algorithm.UI to javafx.fxml;
-    exports com.h0uss.floyd_algorithm.UI.cells;
-    opens com.h0uss.floyd_algorithm.UI.cells to javafx.fxml;
+    exports com.h0uss.floyd_algorithm.UI.matrix;
+    opens com.h0uss.floyd_algorithm.UI.matrix to javafx.fxml;
+    exports com.h0uss.floyd_algorithm.UI.matrix.cells;
+    opens com.h0uss.floyd_algorithm.UI.matrix.cells to javafx.fxml;
+    exports com.h0uss.floyd_algorithm.UI.graph;
+    opens com.h0uss.floyd_algorithm.UI.graph to javafx.fxml;
 }

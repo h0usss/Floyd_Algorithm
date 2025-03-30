@@ -27,3 +27,9 @@
     -fx-fill: #2ecc71;
     -fx-stroke: #27ae60;
 }
+
+.floyd-line-label{
+    -fx-background-color: #f4f4f4;
+    -fx-font-size: 15px;
+    -fx-padding: 10px 15px;
+}

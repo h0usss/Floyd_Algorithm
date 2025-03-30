@@ -1,4 +1,4 @@
-package com.h0uss.floyd_algorithm.UI.cells;
+package com.h0uss.floyd_algorithm.UI.matrix.cells;
 
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

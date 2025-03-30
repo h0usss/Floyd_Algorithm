@@ -1,4 +1,4 @@
-package com.h0uss.floyd_algorithm.UI.cells;
+package com.h0uss.floyd_algorithm.UI.matrix.cells;
 
 public class TextingCell extends Cell {
 

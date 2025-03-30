@@ -1,12 +1,14 @@
-package com.h0uss.floyd_algorithm.UI;
+package com.h0uss.floyd_algorithm.UI.matrix;
 
-import com.h0uss.floyd_algorithm.UI.cells.Cell;
-import com.h0uss.floyd_algorithm.UI.cells.NumCell;
-import com.h0uss.floyd_algorithm.UI.cells.TextingCell;
+import com.h0uss.floyd_algorithm.UI.matrix.cells.Cell;
+import com.h0uss.floyd_algorithm.UI.matrix.cells.NumCell;
+import com.h0uss.floyd_algorithm.UI.matrix.cells.TextingCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+
+import java.util.ArrayList;
 
 public class Matrix extends GridPane {
 
@@ -28,18 +30,18 @@ public class Matrix extends GridPane {
     public void resizeMatrix(int _size) {
         size = _size;
 
-        this.getChildren().clear();
-        this.getColumnConstraints().clear();
-        this.getRowConstraints().clear();
+        getChildren().clear();
+        getColumnConstraints().clear();
+        getRowConstraints().clear();
 
         for (int i = 0; i < size; i++) {
             ColumnConstraints col = new ColumnConstraints();
             col.setPercentWidth(100.0/size);
-            this.getColumnConstraints().add(col);
+            getColumnConstraints().add(col);
 
             RowConstraints row = new RowConstraints();
             row.setPercentHeight(100.0/size);
-            this.getRowConstraints().add(row);
+            getRowConstraints().add(row);
         }
 
         fillCellMatrix();
@@ -68,8 +70,13 @@ public class Matrix extends GridPane {
         setStyles();
     }
 
-    private Cell getCell(int column, int row) {
-        return (Cell) this.getChildren().get(row * this.getRowCount() + column);
+
+
+    public void set(int[][] matrix) {
+        for (int i = 1; i < size; i++)
+            for (int j = 1; j < size; j++)
+                if (i != j)
+                    getCell(i,j).setText(String.valueOf(matrix[i-1][j-1]));
     }
 
     private void setStyles() {
@@ -84,6 +91,8 @@ public class Matrix extends GridPane {
         setPrefHeight(400);
         setPrefWidth(400);
     }
+
+
 
     public int[][] getMatrix() {
         int[][] res = new int[size - 1][size - 1];
@@ -103,10 +112,20 @@ public class Matrix extends GridPane {
         return res;
     }
 
-    public void set(int[][] matrix) {
+    public int getSize() {
+        return size - 1;
+    }
+
+    public ArrayList<Cell> getAllTextingCell() {
+        ArrayList<Cell> res = new ArrayList<>();
         for (int i = 1; i < size; i++)
             for (int j = 1; j < size; j++)
                 if (i != j)
-                    getCell(i,j).setText(String.valueOf(matrix[i-1][j-1]));
+                    res.add(getCell(i,j));
+        return res;
+    }
+
+    private Cell getCell(int column, int row) {
+        return (Cell) this.getChildren().get(row * this.getRowCount() + column);
     }
 }

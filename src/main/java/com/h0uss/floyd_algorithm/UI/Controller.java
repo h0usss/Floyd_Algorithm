@@ -1,16 +1,23 @@
 package com.h0uss.floyd_algorithm.UI;
 
+import com.h0uss.floyd_algorithm.UI.graph.FloydLine;
+import com.h0uss.floyd_algorithm.UI.graph.FloydNode;
+import com.h0uss.floyd_algorithm.UI.matrix.Matrix;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+
+import java.util.ArrayList;
 
 
 public class Controller{
+
     private static final int INITIAL_SIZE = 4;
+    private static ArrayList<FloydNode> nodes = new ArrayList<>();
+    private static ArrayList<FloydLine> lines = new ArrayList<>();
 
     @FXML private AnchorPane paneAdjacency;
     @FXML private AnchorPane paneOrdinal;
@@ -42,10 +49,10 @@ public class Controller{
 
         SetUp.button(btnCalc, adjacencyMatrix, ordinalMatrix, weightMatrix);
 
-        FloydNode node = new FloydNode(50, "1");
-        paneDraw.getChildren().add(node);
-        node.setCenter(paneDraw.getPrefWidth() / 2.0, paneDraw.getPrefHeight() / 2.0);
+        SetUp.nodeInitialize(paneDraw, adjacencyMatrix, nodes);
+        SetUp.nodeDraw(paneDraw, nodes);
+        SetUp.connectionSpinnerNode(spinnerGridSize, nodes, paneDraw);
 
+        SetUp.connectionMatrixLines(paneDraw, adjacencyMatrix, lines, nodes);
     }
-
 }
