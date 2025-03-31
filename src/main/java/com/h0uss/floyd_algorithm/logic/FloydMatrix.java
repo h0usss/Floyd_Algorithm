@@ -14,12 +14,12 @@ public class FloydMatrix {
     }
 
     public int[][] getOrdinalMatrixIncrement() {
-        int[][] res = ordinalMatrix.clone();
+        int[][] res = new int[ordinalMatrix.length][ordinalMatrix[0].length];
 
         for (int i = 0; i < ordinalMatrix.length; i++)
             for (int j = 0; j < ordinalMatrix[0].length; j++)
                 if (i != j)
-                    res[i][j] += 1;
+                    res[i][j] += ordinalMatrix[i][j] + 1;
 
         return res;
     }

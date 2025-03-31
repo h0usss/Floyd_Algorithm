@@ -23,10 +23,33 @@
     -fx-stroke-type: inside;
 }
 
+.floyd-node-highlight {
+    -fx-fill: #fbc17c;
+    -fx-stroke: #fdb062;
+    -fx-stroke-width: 2px;
+    -fx-stroke-type: inside;
+}
+
+.floyd-node-highlight:hover {
+    -fx-fill: #ffaf6d;
+    -fx-stroke: #ff9e42;
+}
+
 .floyd-node:hover {
     -fx-fill: #a8fffb;
     -fx-stroke: #00eee1;
 
+}
+
+
+.floyd-line{
+    -fx-stroke: black;
+    -fx-fill: transparent;
+}
+
+.floyd-line-highlight{
+    -fx-stroke: orange;
+    -fx-fill: transparent;
 }
 
 .floyd-line-label{
@@ -34,3 +57,5 @@
     -fx-font-size: 15px;
     -fx-padding: 10px 15px;
 }
+
+

@@ -5,6 +5,7 @@ import com.h0uss.floyd_algorithm.UI.graph.FloydNode;
 import com.h0uss.floyd_algorithm.UI.matrix.Matrix;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class Controller{
 
-    private static final int INITIAL_SIZE = 4;
+    private static final int INITIAL_SIZE = 3;
     private static ArrayList<FloydNode> nodes = new ArrayList<>();
     private static ArrayList<FloydLine> lines = new ArrayList<>();
 
@@ -24,17 +25,20 @@ public class Controller{
     @FXML private AnchorPane paneDraw;
 
     @FXML private Button btnCalc;
+    @FXML private Button btnReset;
 
     @FXML private ChoiceBox<Integer> chBoxTo;
     @FXML private ChoiceBox<Integer> chBoxFrom;
 
     @FXML private Spinner<Integer> spinnerGridSize;
 
+    @FXML private Label labelPath;
+
     @FXML
     void initialize() {
-        Matrix adjacencyMatrix = new Matrix(INITIAL_SIZE, paneAdjacency, true);
-        Matrix ordinalMatrix = new Matrix(INITIAL_SIZE, paneOrdinal, false);
-        Matrix weightMatrix = new Matrix(INITIAL_SIZE, paneWeight, false);
+        Matrix adjacencyMatrix = new Matrix(INITIAL_SIZE + 1, paneAdjacency, true);
+        Matrix ordinalMatrix = new Matrix(INITIAL_SIZE + 1, paneOrdinal, false);
+        Matrix weightMatrix = new Matrix(INITIAL_SIZE + 1, paneWeight, false);
 
         SetUp.setSpinnerProperty(spinnerGridSize);
         SetUp.connectionSpinnerMatrix(spinnerGridSize, adjacencyMatrix);
@@ -46,14 +50,21 @@ public class Controller{
         SetUp.connectionChoiceBoxMatrix(spinnerGridSize, chBoxFrom);
         SetUp.connectionChoiceBoxMatrix(spinnerGridSize, chBoxTo);
 
-        SetUp.button(btnCalc, adjacencyMatrix, ordinalMatrix, weightMatrix);
+        SetUp.buttonCalc(btnCalc, labelPath, chBoxFrom, chBoxTo, adjacencyMatrix, ordinalMatrix, weightMatrix, nodes, lines);
+        SetUp.connectionSpinnerLabel(spinnerGridSize, labelPath);
 
-        SetUp.nodeInitialize(paneDraw, adjacencyMatrix, nodes);
-        SetUp.nodeDraw(paneDraw, nodes);
-        SetUp.connectionSpinnerNode(spinnerGridSize, nodes, paneDraw);
+        SetUp.btnReset(btnReset, labelPath, chBoxFrom, chBoxTo, adjacencyMatrix, ordinalMatrix, weightMatrix, lines);
+
+        SetUp.initializeNode(paneDraw, adjacencyMatrix, nodes);
+        SetUp.dragNodeAndLine(nodes, lines, adjacencyMatrix, paneDraw);
+        SetUp.drawNode(paneDraw, nodes);
+        SetUp.connectionSpinnerNode(spinnerGridSize, nodes, paneDraw, lines, adjacencyMatrix);
 
         SetUp.connectionMatrixLines(paneDraw, adjacencyMatrix, lines, nodes);
         SetUp.connectionSpinnerLines(spinnerGridSize, paneDraw, adjacencyMatrix, lines, nodes);
 
     }
 }
+
+
+// TODO: стрелки и пропадание выделений линий
