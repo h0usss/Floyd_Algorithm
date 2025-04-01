@@ -204,7 +204,6 @@ public class SetUp {
         pane.getChildren().removeAll(lines);
         lines.clear();
 
-        // Создаем новые линии
         for (int i = 0; i < adjacencyMatrix.getSize(); i++) {
             for (int j = i + 1; j < adjacencyMatrix.getSize(); j++) {
                 int weightIJ = matrix[i][j];

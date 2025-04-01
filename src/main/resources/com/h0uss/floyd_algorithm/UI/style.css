@@ -1,15 +1,9 @@
-.root {
-    -main-color: #c6faf6;
-    -sec-color: #eee;
-    -circ-stroke: #5ad8cc;
-}
-
 .cell{
-    -fx-background-color: -sec-color;
+    -fx-background-color: #eee;
 }
 
 .num-cell{
-    -fx-background-color: -main-color;
+    -fx-background-color: #c6faf6;
 }
 
 .texting-cell{
@@ -17,8 +11,8 @@
 }
 
 .floyd-node {
-    -fx-fill: -main-color;
-    -fx-stroke: -circ-stroke;
+    -fx-fill: #c6faf6;
+    -fx-stroke: #5ad8cc;
     -fx-stroke-width: 2px;
     -fx-stroke-type: inside;
 }

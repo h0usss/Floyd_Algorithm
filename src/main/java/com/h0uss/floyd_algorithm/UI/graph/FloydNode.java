@@ -64,12 +64,4 @@ public class FloydNode extends StackPane {
     public int getNumber() {
         return num;
     }
-
-    public void addLine(FloydLine line) {
-        lines.add(line);
-    }
-
-    public ArrayList<FloydLine> getLines() {
-        return lines;
-    }
 }

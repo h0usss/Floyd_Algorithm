@@ -104,14 +104,12 @@ public class FloydLine extends StackPane {
         double centerEX = nodeEnd.getCenterX() - getLayoutX();
         double centerEY = nodeEnd.getCenterY() - getLayoutY();
 
-        // Определяем контрольную точку для квадратичной кривой Безье
         Geometry g = new Geometry();
         Point2D control = g.getMiddleCoordinateForLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), height);
-        double controlX = control.getX(); // Смещение для изгиба
+        double controlX = control.getX();
         double controlY = control.getY();
 
-        // Вычисляем касательную в конце кривой
-        double t = 0.9; // Параметр t для вычисления касательной ближе к концу
+        double t = 0.9;
         double dx = (1 - t) * (controlX - centerSX) + t * (centerEX - controlX);
         double dy = (1 - t) * (controlY - centerSY) + t * (centerEY - controlY);
         double angle = Math.atan2(dy, dx);
@@ -125,7 +123,6 @@ public class FloydLine extends StackPane {
         arrow.getPoints().clear();
         arrow.getPoints().addAll(points);
 
-        // Устанавливаем позицию стрелки в конец кривой, с учетом радиуса узла
         arrow.setTranslateX(centerEX - getPrefWidth() / 2 - (nodeEnd.getRadius() + 3) * Math.cos(angle));
         arrow.setTranslateY(centerEY - getPrefHeight() / 2 - (nodeEnd.getRadius() + 3) * Math.sin(angle));
 

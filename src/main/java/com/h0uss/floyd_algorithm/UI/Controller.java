@@ -64,3 +64,5 @@ public class Controller{
         SetUp.connectionSpinnerLines(spinnerGridSize, paneDraw, adjacencyMatrix, lines, nodes);
     }
 }
+
+// TODO: REFACTORING!!

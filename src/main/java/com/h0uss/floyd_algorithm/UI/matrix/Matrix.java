@@ -128,10 +128,4 @@ public class Matrix extends GridPane {
     private Cell getCell(int column, int row) {
         return (Cell) this.getChildren().get(row * this.getRowCount() + column);
     }
-
-    public void clear(){
-        for (int i = 1; i < size; i++)
-            for (int j = 1; j < size; j++)
-                getCell(i,j).setText("∞");
-    }
 }
