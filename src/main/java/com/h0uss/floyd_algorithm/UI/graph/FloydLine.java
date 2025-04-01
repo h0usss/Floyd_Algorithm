@@ -130,29 +130,6 @@ public class FloydLine extends StackPane {
         arrow.setTranslateY(centerEY - getPrefHeight() / 2 - (nodeEnd.getRadius() + 3) * Math.sin(angle));
 
         arrow.setRotate(Math.toDegrees(angle));
-
-//        double arrowHeadSize = 10;
-//        double centerSX = nodeStart.getCenterX() - getLayoutX();
-//        double centerSY = nodeStart.getCenterY() - getLayoutY();
-//        double centerEX = nodeEnd.getCenterX() - getLayoutX();
-//        double centerEY = nodeEnd.getCenterY() - getLayoutY();
-//
-//        double angle = Math.atan2(centerEY - centerSY, centerEX - centerSX);
-//
-//        Double[] points = new Double[] {
-//                0.0, 0.0,
-//                -arrowHeadSize, -arrowHeadSize/2,
-//                -arrowHeadSize, arrowHeadSize/2
-//        };
-//
-//        arrow.getPoints().clear();
-//        arrow.getPoints().addAll(points);
-//
-//        arrow.setTranslateX(centerEX - getPrefWidth() / 2 - (nodeEnd.getRadius() + 5) * Math.cos(angle));
-//        arrow.setTranslateY(centerEY - getPrefHeight() / 2 - (nodeEnd.getRadius() + 5) * Math.sin(angle));
-//
-//        arrow.setRotate(Math.toDegrees(angle));
-
     }
 
     public void changeCurvature(int rad){

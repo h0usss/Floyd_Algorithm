@@ -13,26 +13,7 @@ public class FloydMatrix {
         return ordinalMatrix;
     }
 
-    public int[][] getOrdinalMatrixIncrement() {
-        int[][] res = new int[ordinalMatrix.length][ordinalMatrix[0].length];
-
-        for (int i = 0; i < ordinalMatrix.length; i++)
-            for (int j = 0; j < ordinalMatrix[0].length; j++)
-                if (i != j)
-                    res[i][j] += ordinalMatrix[i][j] + 1;
-
-        return res;
-    }
-
     public int[][] getWeightMatrix() {
         return weightMatrix;
-    }
-
-    protected void setWeightMatrix(int[][] weightMatrix) {
-        this.weightMatrix = weightMatrix.clone();
-    }
-
-    protected void setOrdinalMatrix(int[][] ordinalMatrix) {
-        this.ordinalMatrix = ordinalMatrix.clone();
     }
 }

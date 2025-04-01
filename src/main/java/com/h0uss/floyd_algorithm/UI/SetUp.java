@@ -58,7 +58,7 @@ public class SetUp {
 
             FloydMatrix floydMatrix = Algorithm.mainAlgorithm(oMatrix);
 
-            ordinalMatrix.set(floydMatrix.getOrdinalMatrixIncrement());
+            ordinalMatrix.set(floydMatrix.getOrdinalMatrix());
             weightMatrix.set(floydMatrix.getWeightMatrix());
 
             resetColorNodes(nodes);
