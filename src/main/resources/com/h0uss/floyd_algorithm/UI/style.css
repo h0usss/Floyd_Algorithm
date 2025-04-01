@@ -52,6 +52,15 @@
     -fx-fill: transparent;
 }
 
+
+.floyd-line-arrow{
+    -fx-fill: black;
+}
+
+.floyd-line-arrow-highlight{
+    -fx-fill: orange;
+}
+
 .floyd-line-label{
     -fx-background-color: #f4f4f4;
     -fx-font-size: 15px;

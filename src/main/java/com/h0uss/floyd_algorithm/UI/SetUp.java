@@ -9,6 +9,7 @@ import com.h0uss.floyd_algorithm.logic.FloydMatrix;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +42,10 @@ public class SetUp {
     }
 
 
-    public static void btnReset(Button btn, Label label, ChoiceBox<Integer> chBoxFrom, ChoiceBox<Integer> chBoxTo, Matrix aMatrix,
-                                Matrix oMatrix, Matrix wMatrix, ArrayList<FloydLine> lines) {
+    public static void btnReset(Spinner<Integer> spinner, Button btn, Matrix aMatrix) {
         btn.setOnAction(event -> {
-            aMatrix.clear();
-            oMatrix.clear();
-            wMatrix.clear();
-            lines.clear();
-            chBoxFrom.setValue(null);
-            chBoxTo.setValue(null);
-            label.setText("");
+            spinner.getValueFactory().setValue(aMatrix.getSize() + 1);
+            spinner.getValueFactory().setValue(aMatrix.getSize() - 1);
         });
     }
 
@@ -77,7 +72,7 @@ public class SetUp {
                     return;
                 }
 
-                StringBuffer text = new StringBuffer();
+                StringBuilder text = new StringBuilder();
 
                 for (int i = 0; i < path.size(); i++){
                     if (i == 0)
@@ -186,12 +181,12 @@ public class SetUp {
 
     public static void connectionMatrixLines(Pane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
         for (Cell cell : adjacencyMatrix.getAllTextingCell())
-            cell.textProperty().addListener((observable, oldValue, newValue) -> {
-                updateLines(pane, adjacencyMatrix, lines, nodes);
-            });
+            cell.textProperty().addListener((observable, oldValue, newValue)
+                    -> updateLines(pane, adjacencyMatrix, lines, nodes));
     }
 
-    public static void connectionSpinnerLines(Spinner<Integer> spinner,  AnchorPane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
+    public static void connectionSpinnerLines(Spinner<Integer> spinner,  AnchorPane pane, Matrix adjacencyMatrix,
+                                              ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
         spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             pane.getChildren().removeAll(lines);
             connectionMatrixLines(pane, adjacencyMatrix, lines, nodes);
@@ -200,41 +195,50 @@ public class SetUp {
 
     public static void updateLines(Pane pane, Matrix adjacencyMatrix, ArrayList<FloydLine> lines, ArrayList<FloydNode> nodes) {
 
+        List<Pair<Integer, Integer>> highlightedLines = new ArrayList<>();
+        for (FloydLine line : lines)
+            if (line.isHighlighted())
+                highlightedLines.add(new Pair<>(line.getNumOut(), line.getNumIn()));
+
         int[][] matrix = adjacencyMatrix.getMatrix();
         pane.getChildren().removeAll(lines);
         lines.clear();
 
-        for (int i = 0; i < adjacencyMatrix.getSize(); i++)
-            for (int j = i + 1; j < adjacencyMatrix.getSize(); j++){
+        // Создаем новые линии
+        for (int i = 0; i < adjacencyMatrix.getSize(); i++) {
+            for (int j = i + 1; j < adjacencyMatrix.getSize(); j++) {
                 int weightIJ = matrix[i][j];
                 int weightJI = matrix[j][i];
 
-                if (weightIJ == -1 && weightJI == -1)
-                    continue;
-                else if (weightJI == -1)
-                    lines.add(new FloydLine(nodes.get(i), nodes.get(j), weightIJ));
-                else if (weightIJ == -1)
-                    lines.add(new FloydLine(nodes.get(j), nodes.get(i), weightJI));
-                else if (weightIJ == weightJI) {
-                    FloydLine line = new FloydLine(nodes.get(i), nodes.get(j), weightIJ);
-                    line.setNoArrow();
-                    lines.add(line);
-                }
-                else {
-                    FloydLine line1 = new FloydLine(nodes.get(i), nodes.get(j), matrix[i][j]);
-                    line1.changeCurvature(RADIUS_NODE);
-                    lines.add(line1);
+                if (weightIJ == -1 && weightJI == -1) continue;
 
+                FloydLine line;
+                if (weightJI == -1) {
+                    line = new FloydLine(nodes.get(i), nodes.get(j), weightIJ);
+                } else if (weightIJ == -1) {
+                    line = new FloydLine(nodes.get(j), nodes.get(i), weightJI);
+                } else if (weightIJ == weightJI) {
+                    line = new FloydLine(nodes.get(i), nodes.get(j), weightIJ);
+                    line.setNoArrow();
+                } else {
+                    line = new FloydLine(nodes.get(i), nodes.get(j), matrix[i][j]);
+                    line.changeCurvature(RADIUS_NODE);
                     FloydLine line2 = new FloydLine(nodes.get(j), nodes.get(i), matrix[j][i]);
                     line2.changeCurvature(RADIUS_NODE);
                     lines.add(line2);
                 }
-            }
 
-        redrawLines(pane, nodes, lines);
+                if (highlightedLines.contains(new Pair<>(line.getNumOut(), line.getNumIn()))) {
+                    line.setStyleHighlight();
+                }
+                lines.add(line);
+            }
+        }
+
+        redrawLines(pane, lines);
     }
 
-    private static void redrawLines(Pane pane, ArrayList<FloydNode> nodes, ArrayList<FloydLine> lines){
+    private static void redrawLines(Pane pane, ArrayList<FloydLine> lines){
         pane.getChildren().removeAll(lines);
         pane.getChildren().addAll(lines);
     }

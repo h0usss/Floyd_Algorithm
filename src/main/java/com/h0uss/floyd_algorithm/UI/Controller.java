@@ -53,7 +53,7 @@ public class Controller{
         SetUp.buttonCalc(btnCalc, labelPath, chBoxFrom, chBoxTo, adjacencyMatrix, ordinalMatrix, weightMatrix, nodes, lines);
         SetUp.connectionSpinnerLabel(spinnerGridSize, labelPath);
 
-        SetUp.btnReset(btnReset, labelPath, chBoxFrom, chBoxTo, adjacencyMatrix, ordinalMatrix, weightMatrix, lines);
+        SetUp.btnReset(spinnerGridSize, btnReset,adjacencyMatrix);
 
         SetUp.initializeNode(paneDraw, adjacencyMatrix, nodes);
         SetUp.dragNodeAndLine(nodes, lines, adjacencyMatrix, paneDraw);
@@ -62,9 +62,5 @@ public class Controller{
 
         SetUp.connectionMatrixLines(paneDraw, adjacencyMatrix, lines, nodes);
         SetUp.connectionSpinnerLines(spinnerGridSize, paneDraw, adjacencyMatrix, lines, nodes);
-
     }
 }
-
-
-// TODO: стрелки и пропадание выделений линий
