@@ -17,7 +17,7 @@ public class Matrix extends GridPane {
 
     public Matrix(int _size, Pane pane, boolean isEditable) {
         super();
-        this.size = _size;
+        this.size = _size + 1;
         this.isEditable = isEditable;
 
         setSettings();
