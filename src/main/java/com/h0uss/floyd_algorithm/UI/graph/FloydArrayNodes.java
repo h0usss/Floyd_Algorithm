@@ -4,12 +4,13 @@ import com.h0uss.floyd_algorithm.UI.matrix.Matrix;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FloydArrayNodes extends ArrayList<FloydNode> {
 
-    private Pane pane;
-    private int radius;
-    private Matrix matrix;
+    private final Pane pane;
+    private final int radius;
+    private final Matrix matrix;
 
     public FloydArrayNodes(Pane parPane, Matrix adjacencyMatrix, int nodeRadius) {
         pane = parPane;
@@ -20,6 +21,8 @@ public class FloydArrayNodes extends ArrayList<FloydNode> {
             add(new FloydNode(radius , i + 1));
 
         drawNodesToStartPosition();
+
+        pane.getChildren().addAll(this);
     }
 
     public void drawNodesToStartPosition(){
@@ -31,5 +34,39 @@ public class FloydArrayNodes extends ArrayList<FloydNode> {
         for (int i = 0; i < size(); i++)
             get(i).setCenter(centerX + Math.cos(grad * i - Math.PI / 2) * bigRadius,
                              centerY + Math.sin(grad * i - Math.PI / 2) * bigRadius);
+    }
+
+    public void setNormalColor(){
+        for (FloydNode node : this)
+            node.setStyleStandard();
+    }
+
+    public void setHighlightColor(List<Integer> path){
+        for (FloydNode node : this)
+            if (path.contains(node.getNumber()))
+                node.setStyleHighlight();
+    }
+
+    public void dragNodeAndLine(FloydArrayLines lines, Pane pane) {
+        for (FloydNode node : this){
+            node.setOnMouseDragged(null);
+
+            node.setOnMouseDragged(event -> {
+                double newX = event.getSceneX() - node.getBoundsInLocal().getWidth()/2;
+                double newY = event.getSceneY() - node.getBoundsInLocal().getHeight()/2;
+
+                newX = Math.max(0, Math.min(newX, pane.getWidth() - node.getBoundsInLocal().getWidth()));
+                newY = Math.max(0, Math.min(newY, pane.getHeight() - node.getBoundsInLocal().getHeight()));
+
+                node.setLayoutX(newX);
+                node.setLayoutY(newY);
+
+                lines.update(matrix, this);
+            });
+        }
+    }
+
+    public void addNewNodeByNum(int number){
+        add(new FloydNode(radius , number));
     }
 }

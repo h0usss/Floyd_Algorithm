@@ -14,4 +14,6 @@ module com.h0uss.floyd_algorithm {
     opens com.h0uss.floyd_algorithm.UI.matrix.cells to javafx.fxml;
     exports com.h0uss.floyd_algorithm.UI.graph;
     opens com.h0uss.floyd_algorithm.UI.graph to javafx.fxml;
+    exports com.h0uss.floyd_algorithm.util;
+    opens com.h0uss.floyd_algorithm.util to javafx.fxml;
 }

@@ -1,10 +1,10 @@
-package com.h0uss.floyd_algorithm.logic;
+package com.h0uss.floyd_algorithm.util;
 
 import javafx.geometry.Point2D;
 
 public class Geometry {
 
-    public Point2D getMiddleCoordinateForLine(double x1, double y1, double x2, double y2, double height) {
+    public static Point2D getMiddleCoordinateForLine(double x1, double y1, double x2, double y2, double height) {
 
         double dx = x2 - x1;
         double dy = y2 - y1;

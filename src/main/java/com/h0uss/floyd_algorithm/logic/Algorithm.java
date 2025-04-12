@@ -34,49 +34,53 @@ public class Algorithm {
         return new FloydMatrix(weight, ordinal);
     }
 
-    public static ArrayList<Integer> findShortestPath(int start, int end, FloydMatrix matrix){
+    public static ArrayList<Integer> getShortestPath(int start, int end, FloydMatrix matrix){
 
-        ArrayList<Integer> rez = new ArrayList<>();
+        ArrayList<Integer> res = new ArrayList<>();
 
         if (matrix == null || start <= 0 || end <= 0 || start == end)
-            return rez;
+            return res;
 
         int[][] ordinalMatrix = matrix.getOrdinalMatrix();
-        int[][] weightMatrix = matrix.getWeightMatrix();
 
         if (start > ordinalMatrix.length || end > ordinalMatrix.length)
-            return rez;
+            return res;
 
-        rez.add(start);
-        rez.add(end);
+        res.add(start);
+        res.add(end);
         int c = 0;
 
-        while (c != rez.size() - 1){
+        while (c != res.size() - 1){
             c = 0;
-            for (int i = 0; i < rez.size() - 1; i++){
-                int inOrd = ordinalMatrix[rez.get(i) - 1][rez.get(i+1) - 1];
+            for (int i = 0; i < res.size() - 1; i++){
+                int inOrd = ordinalMatrix[res.get(i) - 1][res.get(i+1) - 1];
 
                 if (inOrd == -1)
                     return new ArrayList<>();
-                else if (inOrd == rez.get(i+1))
+                else if (inOrd == res.get(i+1))
                     c++;
                 else{
-                    rez.add(i+1, ordinalMatrix[rez.get(i) - 1][rez.get(i+1) - 1]);
+                    res.add(i+1, ordinalMatrix[res.get(i) - 1][res.get(i+1) - 1]);
                     break;
                 }
             }
         }
 
-        int count = 0;
+        return res;
+    }
 
-        for (int i = 0; i < rez.size() - 1; i++)
-            count += weightMatrix[rez.get(i) - 1][rez.get(i+1) - 1];
+    public static int getWeightShortestPath(ArrayList<Integer> path, FloydMatrix matrix) {
 
-        for (int i = 0; i < rez.size(); i++)
-            rez.set(i, rez.get(i));
+        if (path.isEmpty())
+            return 0;
 
-        rez.add(0, count);
-        return rez;
+        int[][] weightMatrix = matrix.getWeightMatrix();
+        int res = 0;
+        
+        for (int i = 0; i < path.size() - 1; i++)
+            res += weightMatrix[path.get(i) - 1][path.get(i + 1) - 1];
+
+        return res;
     }
 
     private static int[][] ordinalMatrix(int size, int[][] weight){

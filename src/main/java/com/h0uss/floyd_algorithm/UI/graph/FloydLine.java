@@ -1,21 +1,22 @@
 package com.h0uss.floyd_algorithm.UI.graph;
 
-import com.h0uss.floyd_algorithm.logic.Geometry;
+import com.h0uss.floyd_algorithm.util.Geometry;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.QuadCurve;
 
 public class FloydLine extends StackPane {
 
-    private QuadCurve line;
-    private Polygon arrow;
-    private Label label;
-    private int numOut;
-    private int numIn;
-    private FloydNode nodeS;
-    private FloydNode nodeE;
+    private final QuadCurve line;
+    private final Polygon arrow;
+    private final Label label;
+    private final int numOut;
+    private final int numIn;
+    private final FloydNode nodeS;
+    private final FloydNode nodeE;
     private boolean isHighlighted = false;
 
     public FloydLine(FloydNode nodeStart, FloydNode nodeEnd, int weight) {
@@ -27,13 +28,16 @@ public class FloydLine extends StackPane {
         nodeS = nodeStart;
         nodeE = nodeEnd;
 
+        Pane linePane = new Pane();
+        linePane.getChildren().add(line);
+
         setPanePosition(nodeStart, nodeEnd);
         setLineSettings(nodeStart, nodeEnd);
         setTextSettings();
         setArrowPosition(nodeStart, nodeEnd, 0);
         setViewOrder(3);
 
-        getChildren().addAll(line, label, arrow);
+        getChildren().addAll(linePane, label, arrow);
     }
 
     private void setPanePosition(FloydNode nodeStart, FloydNode nodeEnd){
@@ -43,11 +47,11 @@ public class FloydLine extends StackPane {
         double maxY = Math.max(nodeStart.getCenterY(), nodeEnd.getCenterY());
         double radius = nodeStart.getRadius();
 
-        if ((maxX - minX) < radius / 2 || (maxY - minY) < radius / 2) {
-            minX = minX - radius * 2;
-            maxX = maxX + radius * 2;
-            minY = minY - radius * 2;
-            maxY = maxY + radius * 2;
+        if ((maxX - minX) <= radius || (maxY - minY) <= radius) {
+            minX = minX - radius * 1.5;
+            maxX = maxX + radius * 1.5;
+            minY = minY - radius * 1.5;
+            maxY = maxY + radius * 1.5;
         }
 
         setLayoutX(minX);
@@ -99,19 +103,18 @@ public class FloydLine extends StackPane {
 
     private void setArrowPosition(FloydNode nodeStart, FloydNode nodeEnd, double height) {
         double arrowHeadSize = 10;
-        double centerSX = nodeStart.getCenterX() - getLayoutX();
-        double centerSY = nodeStart.getCenterY() - getLayoutY();
-        double centerEX = nodeEnd.getCenterX() - getLayoutX();
-        double centerEY = nodeEnd.getCenterY() - getLayoutY();
+        double startX = nodeStart.getCenterX() - getLayoutX();
+        double startY = nodeStart.getCenterY() - getLayoutY();
+        double endX = nodeEnd.getCenterX() - getLayoutX();
+        double endY = nodeEnd.getCenterY() - getLayoutY();
 
-        Geometry g = new Geometry();
-        Point2D control = g.getMiddleCoordinateForLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), height);
+        Point2D control = Geometry.getMiddleCoordinateForLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), height);
         double controlX = control.getX();
         double controlY = control.getY();
 
-        double t = 0.9;
-        double dx = (1 - t) * (controlX - centerSX) + t * (centerEX - controlX);
-        double dy = (1 - t) * (controlY - centerSY) + t * (centerEY - controlY);
+        double t = 0.97;
+        double dx = (1 - t) * (controlX - startX) + t * (endX - controlX);
+        double dy = (1 - t) * (controlY - startY) + t * (endY - controlY);
         double angle = Math.atan2(dy, dx);
 
         Double[] points = new Double[]{
@@ -123,38 +126,27 @@ public class FloydLine extends StackPane {
         arrow.getPoints().clear();
         arrow.getPoints().addAll(points);
 
-        arrow.setTranslateX(centerEX - getPrefWidth() / 2 - (nodeEnd.getRadius() + 3) * Math.cos(angle));
-        arrow.setTranslateY(centerEY - getPrefHeight() / 2 - (nodeEnd.getRadius() + 3) * Math.sin(angle));
+        arrow.setTranslateX(endX - getPrefWidth() / 2 - (nodeEnd.getRadius() + 3) * Math.cos(angle));
+        arrow.setTranslateY(endY - getPrefHeight() / 2 - (nodeEnd.getRadius() + 3) * Math.sin(angle));
 
         arrow.setRotate(Math.toDegrees(angle));
     }
 
-    public void changeCurvature(int rad){
-        Geometry g = new Geometry();
-        Point2D coords = g.getMiddleCoordinateForLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), 100);
-        int coefficient = 1;
+    public void changeCurvature(){
+        Point2D coords = Geometry.getMiddleCoordinateForLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), 100);
 
-        if (Math.abs(line.getStartX() - line.getEndX()) < (rad / 3.0)
-                || Math.abs(line.getStartY() - line.getEndY()) < (rad / 3.0)){
-
-            setTranslateX((getPrefWidth()  / 2 - coords.getX()) / -4);             // костыль
-            setTranslateY((getPrefHeight() / 2 - coords.getY()) / -4);
-            coefficient = 2;
-        }
-
-        moveLabel(coords, coefficient);
+        moveLabel(coords);
         setArrowPosition(nodeS, nodeE, 100);
         line.setControlX(coords.getX());
         line.setControlY(coords.getY());
     }
 
-//                                            костыль
-    private void moveLabel(Point2D coords, int coefficient){
+    private void moveLabel(Point2D coords){
         double centerX = getLayoutX() + getPrefWidth() / 2;
         double centerY = getLayoutY() + getPrefHeight() / 2;
 
-        label.setTranslateX((centerX - coords.getX() - getLayoutX() ) / (-2 * coefficient));
-        label.setTranslateY((centerY - coords.getY() - getLayoutY() ) / (-2 * coefficient));
+        label.setTranslateX((centerX - coords.getX() - getLayoutX() ) / -2);
+        label.setTranslateY((centerY - coords.getY() - getLayoutY() ) / -2);
     }
 
     public void setNoArrow() {

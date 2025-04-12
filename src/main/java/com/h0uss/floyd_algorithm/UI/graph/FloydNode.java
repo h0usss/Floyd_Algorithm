@@ -5,19 +5,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.util.ArrayList;
 
 public class FloydNode extends StackPane {
 
-    private int num;
-    private Label label;
-    private Circle circle;
-    private ArrayList<FloydLine> lines;
+    private final int num;
+    private final Label label;
+    private final Circle circle;
 
     public FloydNode(double radius, int number) {
         super();
         num = number;
-        lines = new ArrayList<>();
         circle = new Circle(radius);
         label   = new Label(String.valueOf(num));
 
@@ -31,12 +28,12 @@ public class FloydNode extends StackPane {
 
     public void setStyleStandard() {
         circle.getStyleClass().removeAll("floyd-node-highlight");
-        circle.getStyleClass().add("floyd-node");;
+        circle.getStyleClass().add("floyd-node");
     }
 
     public void setStyleHighlight() {
         circle.getStyleClass().removeAll("floyd-node");
-        circle.getStyleClass().add("floyd-node-highlight");;
+        circle.getStyleClass().add("floyd-node-highlight");
     }
 
     private void setUpLabel() {
