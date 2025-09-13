@@ -35,6 +35,7 @@ public class Controller{
     @FXML
     void initialize() {
         configSetUp();
+
         SetProperty setProperty = new SetProperty();
         Connection connection = new Connection();
 

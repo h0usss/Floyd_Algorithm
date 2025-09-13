@@ -18,6 +18,7 @@ public class FloydLine extends StackPane {
     private final FloydNode nodeS;
     private final FloydNode nodeE;
     private boolean isHighlighted = false;
+    private boolean isNoArrow = false;
 
     public FloydLine(FloydNode nodeStart, FloydNode nodeEnd, int weight) {
         line = new QuadCurve();
@@ -150,6 +151,7 @@ public class FloydLine extends StackPane {
     }
 
     public void setNoArrow() {
+        isNoArrow = true;
         getChildren().remove(arrow);
     }
 
@@ -163,5 +165,9 @@ public class FloydLine extends StackPane {
 
     public boolean isHighlighted() {
         return isHighlighted;
+    }
+
+    public boolean isNoArrow(){
+        return isNoArrow;
     }
 }

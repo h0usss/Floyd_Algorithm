@@ -57,7 +57,6 @@ public class SetProperty {
             ordinalMatrix.set(floydMatrix.getOrdinalMatrix());
             weightMatrix.set(floydMatrix.getWeightMatrix());
 
-
             nodes.setNormalColor();
             lines.setNormalColor();
 
@@ -75,12 +74,12 @@ public class SetProperty {
 
     private void setLabelPathText(Label label, ArrayList<Integer> path, int weight){
         if (path.isEmpty()){
-            label.setText("Нет пути");
+            label.setText("No way");
             return;
         }
 
         StringBuilder text = new StringBuilder();
-        text.append("Вес: ").append(weight).append(" ; Путь: ");
+        text.append("Weight: ").append(weight).append(" ; Path: ");
 
         for (int i = 0; i < path.size(); i++){
             if (i == path.size() - 1)

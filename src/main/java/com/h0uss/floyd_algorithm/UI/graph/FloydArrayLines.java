@@ -6,6 +6,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FloydArrayLines extends ArrayList<FloydLine> {
 
@@ -22,9 +23,21 @@ public class FloydArrayLines extends ArrayList<FloydLine> {
 
     public void setHighlightColor(List<Integer> path){
         for (int i = 0; i < path.size() - 1; i++)
-            for (FloydLine line : this)
-                if (line.getNumOut() == path.get(i) && line.getNumIn() == path.get(i + 1))
-                    line.setStyleHighlight();
+            Objects.requireNonNull(getLineByOutAndIn(path.get(i), path.get(i + 1))).setStyleHighlight();
+    }
+
+    private FloydLine getLineByOutAndIn(Integer out, Integer in){
+        for (FloydLine line : this){
+            if ((line.getNumOut() == out 
+                && line.getNumIn() == in)
+                || 
+                (line.isNoArrow()
+                && line.getNumOut() == in 
+                && line.getNumIn() == out))
+                return line;
+        }
+            
+        return null;
     }
 
     public void update(Matrix adjacencyMatrix, FloydArrayNodes nodes) {
@@ -33,7 +46,7 @@ public class FloydArrayLines extends ArrayList<FloydLine> {
         for (FloydLine line : this)
             if (line.isHighlighted())
                 highlightedLines.add(new Pair<>(line.getNumOut(), line.getNumIn()));
-
+                
         int[][] matrix = adjacencyMatrix.getMatrix();
         pane.getChildren().removeAll(this);
         clear();
@@ -66,8 +79,8 @@ public class FloydArrayLines extends ArrayList<FloydLine> {
                 }
                 this.add(line);
             }
+            
         }
-
         pane.getChildren().removeAll(this);
         pane.getChildren().addAll(this);
     }

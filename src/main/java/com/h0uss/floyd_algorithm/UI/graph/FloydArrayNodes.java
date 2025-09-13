@@ -52,11 +52,11 @@ public class FloydArrayNodes extends ArrayList<FloydNode> {
             node.setOnMouseDragged(null);
 
             node.setOnMouseDragged(event -> {
-                double newX = event.getSceneX() - node.getBoundsInLocal().getWidth()/2;
-                double newY = event.getSceneY() - node.getBoundsInLocal().getHeight()/2;
+                double newX = event.getSceneX() - node.getBoundsInParent().getWidth()/2;
+                double newY = event.getSceneY() - node.getBoundsInParent().getHeight()/2;
 
-                newX = Math.max(0, Math.min(newX, pane.getWidth() - node.getBoundsInLocal().getWidth()));
-                newY = Math.max(0, Math.min(newY, pane.getHeight() - node.getBoundsInLocal().getHeight()));
+                newX = Math.max(0, Math.min(newX, pane.getWidth() - node.getBoundsInParent().getWidth()));
+                newY = Math.max(0, Math.min(newY, pane.getHeight() - node.getBoundsInParent().getHeight()));
 
                 node.setLayoutX(newX);
                 node.setLayoutY(newY);
