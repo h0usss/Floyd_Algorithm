@@ -5,7 +5,7 @@
 
 A script that implements an algorithm for finding the lengths of the shortest paths between all pairs of vertices in a weighted directed graph with a [JavaFX][JavaFX] UI.
 
-  <img align="center" src=".sourceReadme/preview.jpg" alt="Preview" width="600"/>
+  <img align="center" src=".sourceReadme/preview.gif" alt="Preview" width="600"/>
 </div>
 <br>
 <!-- TABLE OF CONTENTS -->
@@ -84,31 +84,16 @@ This project was written as a study paper. Such a stack was chosen for learning 
 
 ### ⚙️ How to use
 
-| Picture 1                                             | Picture 2                                               | Picture 3                                                | Picture 4                                               |
-| ----------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------- |
-| <img src=".sourceReadme/screenMode.png" width="200"/> | <img src=".sourceReadme/cellSettimgs.png" width="600"/> | <img src=".sourceReadme/mouseSettings.png" width="400"/> | <img src=".sourceReadme/fillSettings.gif" width="200"/> |
+| Picture 1                                             | Picture 2                                               | 
+| ----------------------------------------------------- | ------------------------------------------------------- | 
+| <img src=".sourceReadme/matrix.png" width="400"/> | <img src=".sourceReadme/size.png" width="400"/> |
+|View different types of matrix|Change the size of the matrix|
 
-1. Before launching, make sure that the Coloring Game is open and active.
+|Picture 3                                                | Picture 4                                               |
+|----------------------------------------------------- | ----------------------------------------------------- | 
+| <img src=".sourceReadme/lineCreate.png" width="200"/> | <img src=".sourceReadme/path.png" width="400"/> |
+|Setting connections between nodes|Selecting points for the path, calculate paths, reset settings|
 
-2. (optional) Open the game in full screen mode (Picture 1).
-
-3. (optional) Set the cell display settings as shown in Picture 2.
-
-4. Set the mouse settings as shown in Picture 3.
-
-5. (optional) Set the brush mode to fill to speed up the process (Picture 4).
-
-6. Run the script
-
-    ```
-    python main.py
-    ```
-
-7. Click `C` in Game.
-
-8. Wait 5-15s while the canvas is being searched.
-
-9. Enjoy!
 
 <p align="right">( <a href="#readme-top">to top</a> | <a href="#contents">to contents</a> )</p>
 
